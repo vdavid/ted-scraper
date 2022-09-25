@@ -15,5 +15,8 @@
     "dev": "nodemon",
     "build": "etsc --config=etsc.config.mjs",
     "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "node-fetch": "^3.2.10"
   }
 }
