@@ -47,7 +47,23 @@ export type TEDVideo = {
     viewedCount: number
 }
 
-export async function getVideos(count: number = 10, offset: number = 0): Promise<TEDVideo[]> {
+export function getURLForVideo(video: TEDVideo): string {
+    return `https://www.ted.com/talks/${video.slug}`
+}
+
+export async function getCompleteVideoList(length: number = 10, waitTimeBetweenRequestsInMilliseconds: number = 1000): Promise<TEDVideo[]> {
+    const videos: TEDVideo[] = []
+    while (true) {
+        const newVideos = await getVideoListChunk(length, videos.length)
+        videos.push(...newVideos)
+        if (newVideos.length < length) {
+            break
+        }
+        await new Promise(resolve => setTimeout(resolve, waitTimeBetweenRequestsInMilliseconds))
+    }
+    return videos
+}
+async function getVideoListChunk(length: number = 10, offset: number = 0): Promise<TEDVideo[]> {
     const response = await fetch('https://graphql.ted.com/', {
         method: 'POST',
         headers: {
@@ -58,7 +74,7 @@ export async function getVideos(count: number = 10, offset: number = 0): Promise
             operationName: null,
             query: `
 query {
-  videos(first: ${count} after: "${offset}") {
+  videos(first: ${length} after: "${offset}") {
     nodes {
       id
       slug
