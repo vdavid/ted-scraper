@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "type": "module",
   "devDependencies": {
     "@types/node": "^18.7.21",
     "esbuild": "^0.15.9",
@@ -12,7 +13,7 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "build": "etsc",
+    "build": "etsc --config=etsc.config.mjs",
     "start": "node dist/index.js"
   }
 }
