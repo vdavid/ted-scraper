@@ -19,3 +19,8 @@ export async function readVideoListFile(): Promise<TEDVideo[]> {
     const fileContents = await fs.promises.readFile('data/videos.json', 'utf-8')
     return JSON.parse(fileContents)
 }
+
+export async function writeCsv(csv: string) {
+    await fs.promises.mkdir('data').catch(() => { })
+    return fs.promises.writeFile('data/most-interesting-ones.csv', csv)
+}

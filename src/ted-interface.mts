@@ -59,10 +59,12 @@ export async function getCompleteVideoList(length: number = 10, waitTimeBetweenR
         if (newVideos.length < length) {
             break
         }
+        console.log(`Downloaded data for ${videos.length} videos.`)
         await new Promise(resolve => setTimeout(resolve, waitTimeBetweenRequestsInMilliseconds))
     }
     return videos
 }
+
 async function getVideoListChunk(length: number = 10, offset: number = 0): Promise<TEDVideo[]> {
     const response = await fetch('https://graphql.ted.com/', {
         method: 'POST',

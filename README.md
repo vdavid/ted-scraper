@@ -32,6 +32,6 @@ Takes about 15 minutes to set up and wait for it to finish.
 3. Run `npm run build && npm start` 
 4. Wait. The download takes about 10 minutes on a fast connection. Unfortunately, there is no feedback in the console, but I promise it works!
 5. See the URLs of the top 10 TED talks in the console. See 15+ MB of data in `data/videos.json`
-6. Optional: change `numberOfTopVideosToList` to see more than ten top videos, and  re-run. Note: It only downloaded data once, so it only takes a split-second to re-run any time.
+6. Optional: Settings are available in the first lines of `index.mts`. Change `numberOfTopVideosToList` to see more than ten top videos, and  re-run. Note: It only downloaded data once, so it only takes a split-second to re-run any time.
 7. To re-download data (for example, if you need to re-run the script after a few months), set `forceDownloadVideoList` to `true`, or just delete `data/videos.json`.
-
+8. A CSV output option is available with the flag `writeCSV`,

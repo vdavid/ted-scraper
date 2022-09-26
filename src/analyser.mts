@@ -8,9 +8,23 @@ export function getTheMostInterestingOnes(videos: TEDVideo[], count: number): TE
         .slice(0, count)
 }
 
-export function renderToMarkdownSummary(video: TEDVideo): string {
-    return `[${video.title} by ${video.presenterDisplayName}](${getURLForVideo(video)
+export function renderToMarkdownSummary(video: TEDVideo, index: number): string {
+    return `${index + 1}. [${video.title} by ${video.presenterDisplayName}](${getURLForVideo(video)
     }) (${formatSeconds(video.duration)}) – Watched by ${Math.round(video.viewedCount / 1000000)}M people since ${video.recordedOn.split('T')[0]}`
+}
+
+export function renderToSpreadsheetRow(video: TEDVideo, index: number): string {
+    return [
+        new Date().toLocaleString('sv').substring(0, 10),
+        video.recordedOn.substring(0, 10),
+        video.presenterDisplayName,
+        video.title,
+        video.type.name,
+        getURLForVideo(video),
+        Math.round(video.duration / 60),
+        `ted-scraper (views: ${Math.round(video.viewedCount / 1000000)}M)`,
+        index + 1
+    ].join('\t')
 }
 
 function getAge(video: TEDVideo) {
