@@ -17,12 +17,12 @@ My project was inspired by this [spreadsheet](https://docs.google.com/spreadshee
 Again, if you just need the data, see the [spreadsheet](https://docs.google.com/spreadsheets/d/1a39fdMurOK9MHcDY-z9RxJbgeKttSTWYqHqeCpBYtFM/edit).
 If you want to run the script then here are some simple instructions to follow. It takes 1–3 minutes to set up then you’ll need to wait about 10 minutes for the data download.
 
-0. Have Node.js 12 or newer installed. (Tested with Node.js 16)
-1. Clone the repo
-2. Run `yarn install` to install dependencies.
-3. Run `yarn build && yarn start` to run the script.
-4. Wait. The download takes about 10 minutes on a fast connection. You’ll see some feedback in the console. In 2022-09, there are about 4,500 TED videos.
-5. See the URLs of the top 10 TED talks in the console. See 15+ MB of data in `data/videos.json`. This is the cache that’ll be used for further requests.
-6. Optional: Settings are available in the first lines of `index.mts`. Change `numberOfTopVideosToList` to see more than ten top videos, and  re-run. Note: It only downloaded data once, so it only takes a split-second to re-run any time.
-7. To re-download data (for example, if you need to re-run the script after a few months), set `forceDownloadVideoList` to `true`, or just delete `data/videos.json`.
-8. A CSV output option is available with the flag `writeCSV`,
+1. Have Node.js 12 or newer installed. (Tested with Node.js 16)
+2. Clone the repo
+3. Run `yarn install` to install dependencies.
+4. Run `yarn build && yarn start` to run the script.
+5. Wait. The download takes about 10 minutes on a fast connection. You’ll see some feedback in the console. In 2022-09, there are about 4,500 TED videos.
+6. See the URLs of the top 10 TED talks in the console. See 15+ MB of data in `data/videos.json`. This is the cache that’ll be used for further requests.
+7. Optional: Settings are available in the first lines of `index.mts`. Change `numberOfTopVideosToList` to see more than ten top videos, and  re-run. Note: It only downloaded data once, so it only takes a split-second to re-run any time.
+8. To re-download data (for example, if you need to re-run the script after a few months), set `forceDownloadVideoList` to `true`, or just delete `data/videos.json`.
+9. A CSV output option is available with the flag `writeCSV`,
