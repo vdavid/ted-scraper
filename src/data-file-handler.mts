@@ -11,6 +11,7 @@ export async function doesVideoListFileExist(): Promise<boolean> {
 }
 
 export async function writeVideoListToFile(videos: TEDVideo[]) {
+    await fs.promises.mkdir('data').catch(() => { })
     return fs.promises.writeFile('data/videos.json', JSON.stringify(videos, null, 2))
 }
 
