@@ -9,7 +9,7 @@ const forceDownloadVideoList = false
 const numberOfTopVideosToList = 10
 
 /* Download list if needed */
-if (!doesVideoListFileExist() || forceDownloadVideoList) {
+if (!await doesVideoListFileExist() || forceDownloadVideoList) {
     const videos = await getCompleteVideoList(videosToFetchPerRequest, waitTimeBetweenRequestsInMilliseconds)
     await writeVideoListToFile(videos)
 }
