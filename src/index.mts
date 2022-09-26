@@ -5,7 +5,8 @@ import { doesVideoListFileExist, readVideoListFile, writeVideoListToFile } from 
 /* Settings */
 const videosToFetchPerRequest = 50
 const waitTimeBetweenRequestsInMilliseconds = 3000
-const forceDownloadVideoList = false;
+const forceDownloadVideoList = false
+const numberOfTopVideosToList = 10
 
 /* Download list if needed */
 if (!doesVideoListFileExist() || forceDownloadVideoList) {
@@ -18,7 +19,17 @@ const videos: TEDVideo[] = await readVideoListFile()
 
 /* Print stats */
 const getAge = (video: TEDVideo) => new Date().getTime() - new Date(video.recordedOn).getTime()
-videos.sort((a, b) => b.viewedCount / getAge(b) - a.viewedCount / getAge(a))
-videos.slice(0, 10)
-    .map(video => ({url: getURLForVideo(video), viewedCount: video.viewedCount, date: video.recordedOn, speaker: video.presenterDisplayName, title: video.title}))
-.forEach((data, index) => console.log(`${index + 1}. [${data.title} by ${data.speaker}](${data.url}) – Watched by ${data.viewedCount.toLocaleString()} people since ${data.date.split('T')[0]}`))
+videos
+    .filter(video => video.duration < 3600)
+    .sort((a, b) => b.viewedCount / getAge(b) - a.viewedCount / getAge(a))
+    .slice(0, numberOfTopVideosToList)
+    .map(video => `[${video.title} by ${video.presenterDisplayName}](${getURLForVideo(video)
+    }) (${formatSeconds(video.duration)}) – Watched by ${video.viewedCount.toLocaleString()} people since ${video.recordedOn.split('T')[0]}`)
+    .forEach((line, index) => console.log(`${index + 1}. ${line}`))
+
+function formatSeconds(seconds: number): string {
+    const hours = Math.floor(seconds / 3600)
+    const minutes = Math.floor((seconds - hours * 3600) / 60)
+    seconds = seconds - hours * 3600 - minutes * 60
+    return `${hours > 0 ? hours + 'h ' : ''}${minutes > 0 ? minutes + 'm ' : ''}${seconds > 0 ? seconds + 's' : ''}`
+}
